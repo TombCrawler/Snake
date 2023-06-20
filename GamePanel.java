@@ -2,6 +2,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class GamePanel extends JPanel implements ActionListener{
     
@@ -21,15 +26,23 @@ public class GamePanel extends JPanel implements ActionListener{
     Timer timer; // Creating an instance of the Timer class
     Random random; // Creating an instance of the Random class
     
+    private BufferedImage backgroundImage;
 
-    GamePanel(){
+   GamePanel() {
         random = new Random();
-        this.setPreferredSize((new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT)));
-        this.setBackground(Color.black);
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
+        loadBackgroundImage(); // Load the background image
         startGame();
+    }
 
+    private void loadBackgroundImage() {
+        try {
+            backgroundImage = ImageIO.read(new File("snake.jpeg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void startGame(){
            newApple(); // create a new apple when the game starts
@@ -41,6 +54,8 @@ public class GamePanel extends JPanel implements ActionListener{
     @Override
     public void paintComponent(Graphics g){
            super.paintComponent(g);
+           // Draw the background image
+           g.drawImage(backgroundImage, 0, 0, null);
            draw(g);
     }
 
@@ -68,7 +83,7 @@ public class GamePanel extends JPanel implements ActionListener{
                     }
                     else{
                         g.setColor(new Color(45, 180, 0));
-                        
+
                         g.fillRect(x[i], y[i],UNIT_SIZE, UNIT_SIZE);
                     }
             } 

@@ -8,3 +8,7 @@ It only can not move 180 degrees.
 
 run `javac *.java ` to compile and run `java SnakeGame` to play the game!
 
+___
+Reference
+Give it up for this guy!
+https://www.youtube.com/watch?v=bI6e6qjJ8JQ
